@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework_nested import routers
 
-from ads.views import AdViewSet, CommentViewSet
+from views import AdViewSet, CommentViewSet
 
 ads_router = routers.SimpleRouter()
 ads_router.register(r"ads", AdViewSet)

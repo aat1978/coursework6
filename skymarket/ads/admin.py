@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ads.models import Ad, Comment
+from models import Ad, Comment
 
 
 @admin.register(Comment)

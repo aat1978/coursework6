@@ -2,11 +2,11 @@ from django.shortcuts import get_object_or_404
 from rest_framework import pagination, viewsets
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
-from ads.models import Ad, Comment
-from ads.permissions import IsOwner, IsAdmin
-from ads.serializers import AdDetailSerializer, AdSerializer, CommentSerializer
+from models import Ad, Comment
+from permissions import IsOwner, IsAdmin
+from serializers import AdDetailSerializer, AdSerializer, CommentSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from ads.filters import AdFilter
+from filters import AdFilter
 from rest_framework.decorators import action
 
 
@@ -44,7 +44,6 @@ class AdViewSet(viewsets.ModelViewSet):
             return Ad.objects.filter(author=self.request.user).all()
         return Ad.objects.all()
 
-
     @action(
         detail=False,
         methods=[
@@ -58,7 +57,6 @@ class AdViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-
 
     def perform_create(self, serializer):
         ad_id = self.kwargs.get("ad_pk")

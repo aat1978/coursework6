@@ -1,5 +1,5 @@
 import django_filters
-from ads.models import Ad
+from models import Ad
 
 
 class AdFilter(django_filters.rest_framework.FilterSet):
@@ -7,4 +7,4 @@ class AdFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = Ad
-        fields = ("title", )
+        fields = ("title",)

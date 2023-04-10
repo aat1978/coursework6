@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
-from users.managers import UserManager
 from phonenumber_field.modelfields import PhoneNumberField
+
+from skymarket.users.managers import UserManager
 
 
 class UserRoles:
@@ -14,7 +15,6 @@ class UserRoles:
 
 
 class User(AbstractBaseUser):
-
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -22,23 +22,28 @@ class User(AbstractBaseUser):
 
     first_name = models.CharField(
         max_length=64,
+        null=True,
         verbose_name="Имя",
         help_text="Введите имя, макс 64 символа",
     )
 
     last_name = models.CharField(
         max_length=64,
+        null=True,
         verbose_name="Фамилия",
         help_text="Введите фамилию, макс 64 символа",
     )
 
     email = models.EmailField(
-        "email address",
         unique=True,
+        max_length=50,
+        verbose_name="email address",
         help_text="Укажите электронную почту",
     )
 
     phone = PhoneNumberField(
+        max_length=20,
+        null=True,
         verbose_name="Телефон для связи",
         help_text="Укажите телефон для связи",
 
@@ -61,6 +66,8 @@ class User(AbstractBaseUser):
     )
 
     is_active = models.BooleanField(
+        null=True,
+        default=True,
         verbose_name="Аккаунт активен",
         help_text="Укажите, активен ли аккаунт"
     )
@@ -93,4 +100,5 @@ class User(AbstractBaseUser):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
-        ordering = ["id"]
+        ordering = ["email"]
+

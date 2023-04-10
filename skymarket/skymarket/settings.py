@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    'rest_framework_simplejwt',
     "djoser",
     "phonenumber_field",
     "drf_yasg",
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
     "users",
     "ads",
     "redoc",
+    'drf_spectacular',
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -94,6 +97,18 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Ads API',
+    'DESCRIPTION': 'Ads site',
+    'VERSION': '1.0.0',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+}
+
 DJOSER = {
     'SERIALIZERS': {
         'user_create': 'users.serializers.UserRegistrationSerializer',
